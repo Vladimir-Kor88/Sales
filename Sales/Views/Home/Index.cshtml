@@ -1,0 +1,159 @@
+﻿@using Sales.Models
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Список торговых точек</h1>
+<form method="get">
+    <div>
+        <label>ID клиента: </label>
+        <input type="number" name="client" value="@Model.FilterViewModel.Client" />
+
+        <label>ID точки: </label>
+        <input type="number" name="point" value="@Model.FilterViewModel.Point" />
+
+        <label>Название клиента: </label>
+        <input type="text" name="name" value="@Model.FilterViewModel.Name" />
+
+        <label>Дата начала продаж: </label>
+        <input type="date" name="dateBeginSale" value="@Model.FilterViewModel.DateBeginSale" />
+
+        <label>Дата окончания продаж: </label>
+        <input type="date" name="dateEndSale" value="@Model.FilterViewModel.DateEndSale" />
+
+        <label>Дата начала работы: </label>
+        <input type="date" name="dateBeginContract" value="@Model.FilterViewModel.DateBeginContract" />
+
+        <label>Дата окончания работы: </label>
+        <input type="date" name="dateEndContract" value="@Model.FilterViewModel.DateEndContract" />
+
+        <label>Фильтр по статусу: </label>
+        @Html.RadioButton("isFree", 1, Model.FilterViewModel.IsFree == 1)
+        <span>Все</span> <br />
+        @Html.RadioButton("isFree", 2, Model.FilterViewModel.IsFree == 2)
+        <span>Без бесплатников</span> <br />
+        @Html.RadioButton("isFree", 3, Model.FilterViewModel.IsFree == 3)
+        <span>Только бесплатники</span>
+
+        <input type="submit" value="Фильтр" />
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.IsFreeSort)">Бесплатник</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.IdClientSort)">ID клиента</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.IdPointSort)">ID точки</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Название клиента</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.AddressSort)">Адрес точки</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.ContractSort)">Договор</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.DateContractSort)">Дата договора</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.NumbPointOrdersSort)">Количество заказов</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-isFree="@(Model.FilterViewModel.IsFree)"
+               asp-route-dateEndContract="@(Model.FilterViewModel.DateEndContract)"
+               asp-route-dateBeginContract="@(Model.FilterViewModel.DateBeginContract)"
+               asp-route-dateEndSale="@(Model.FilterViewModel.DateEndSale)"
+               asp-route-dateBeginSale="@(Model.FilterViewModel.DateBeginSale)"
+               asp-route-name="@(Model.FilterViewModel.Name)"
+               asp-route-point="@(Model.FilterViewModel.Point)"
+               asp-route-client="@(Model.FilterViewModel.Client)"
+               asp-route-sortOrder="@(Model.SortViewModel.SumPointSort)">Сумма</a>
+        </th>
+    </tr>
+    @foreach (var element in Model.ViewGroupPoints)
+    {
+        <tr><td>@element.IsFree</td><td>@element.ClientId</td><td>@element.PointId</td><td>@element.Name</td><td>@element.Address</td><td>@element.Contract</td><td>@element.DateContract.ToString()</td><td>@element.PointOrders</td><td>@element.PointSum</td></tr>
+    }
+</table>
